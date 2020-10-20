@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 function Header(props) {
   let link = '',
@@ -11,8 +11,6 @@ function Header(props) {
     link = '/sign-in';
     linkText = 'Войти';
   }
-
-  console.log(props);
 
   return (
     <header className="header">
@@ -37,4 +35,4 @@ function Header(props) {
   );
 }
 
-export default Header;
+export default withRouter(Header);
