@@ -13,4 +13,4 @@
 - npm run deploy - Релиз проекта
 
 ### Ссылка на проект
-https://saver89.github.io/mesto-react-auth/
+https://saver89.github.io/react-mesto-auth/
