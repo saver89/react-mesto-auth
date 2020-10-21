@@ -1,24 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SignForm from './SignForm';
-import * as auth from '../utils/auth';
 
-function Register({registerHandler}) {
+function Register(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  function submitHandler(e) {
-    e.preventDefault();
-    auth.register(password, email).then((res) => {
-      if (res.data) {
-        registerHandler(true);
-      } else {
-        registerHandler(false);
-      }
-    }).catch(()=>{
-      registerHandler(false);
-    });
-  }
 
   const hint = (
     <div className="sign-form__transition-hint">
@@ -32,7 +18,9 @@ function Register({registerHandler}) {
   return (
     <SignForm
       name="sign-in"
-      onSubmit={submitHandler}
+      onSubmit={(e) => {
+        props.submitHandler(e, email, password);
+      }}
       title="Регистрация"
       submitText="Зарегистрироваться"
       hint={hint}

@@ -127,7 +127,7 @@ function App(props) {
     api
       .postCard(card)
       .then((newCard) => {
-        setCards([...cards, newCard]);
+        setCards([newCard, ...cards]);
         setIsAddPlacePopupOpen(false);
       })
       .catch((err) => {
@@ -174,16 +174,48 @@ function App(props) {
     setInfoTooltipSuccess(isSuccess);
   }
 
-  function handleLogin() {
-    setLoggedIn(true);
-  }
-
   function handleLogout() {
     setLoggedIn(false);
     localStorage.removeItem('token');
   }
 
-  console.log(loggedIn);
+  function loginSubmitHandler(e, email, password) {
+    e.preventDefault();
+
+    if (!email || !password) {
+      handleInfoTooltipOpen(false);
+      return;
+    }
+
+    auth
+      .authorize(password, email)
+      .then((data) => {
+        if (data.token) {
+          setLoggedIn(true);
+          history.push('/');
+        } else {
+          handleInfoTooltipOpen(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        handleInfoTooltipOpen(false);
+      });
+  }
+
+  function registerSubmitHandler(e, email, password) {    
+    e.preventDefault();
+
+    auth.register(password, email).then((res) => {
+      if (res.data) {
+        handleInfoTooltipOpen(true);
+      } else {
+        handleInfoTooltipOpen(false);
+      }
+    }).catch(()=>{
+      handleInfoTooltipOpen(false);
+    });    
+  }
 
   const mainPage = (
     <>
@@ -229,15 +261,10 @@ function App(props) {
           <Header loggedIn={loggedIn} email={userEmail} handleLogout={handleLogout} />
           <Switch>
             <Route path="/sign-up">
-              <Register registerHandler={handleInfoTooltipOpen} />
+              <Register submitHandler={registerSubmitHandler} />
             </Route>
             <Route path="/sign-in">
-              <Login
-                handleLogin={handleLogin}
-                handleLoginFailed={() => {
-                  handleInfoTooltipOpen(false);
-                }}
-              />
+              <Login submitHandler={loginSubmitHandler} />
             </Route>
             <ProtectedRoute path="/" loggedIn={loggedIn} component={mainPage} />
             <Route path="*">{loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}</Route>
