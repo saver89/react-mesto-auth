@@ -57,6 +57,7 @@ function Register(props) {
           required
           minLength="2"
           maxLength="32"
+          pattern="^(?=.*[a-zA-Z0-9]).{4,}$"
         />
       </label>
     </SignForm>

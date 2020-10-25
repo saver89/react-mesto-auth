@@ -57,8 +57,6 @@ class Api {
   }
 }
 
-const api = new Api("https://mesto.nomoreparties.co/v1/cohort-13", {
-  authorization: "d0402095-4250-4903-b400-52c8ec468fa5",
-});
+const api = new Api("http://localhost:3000");
 
 export default api;

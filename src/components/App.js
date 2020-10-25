@@ -29,21 +29,17 @@ function App(props) {
   const [userEmail, setUserEmail] = useState('');
   const history = useHistory();
 
-  useEffect(() => {
-    if (localStorage.getItem('token')) {
-      const token = localStorage.getItem('token');
-      // проверяем токен пользователя
-      auth
-        .checkToken(token)
-        .then((res) => {
-          if (res.data) {
-            setLoggedIn(true);
-            setUserEmail(res.data.email);
-            history.push('/');
-          }
-        })
-        .catch((err) => console.log(err));
-    }
+  useEffect(() => {    
+    auth
+      .checkToken()
+      .then((res) => {
+        if (res.data) {
+          setLoggedIn(true);
+          setUserEmail(res.data.email);
+          history.push('/');
+        }
+      })
+      .catch((err) => console.log(err));    
   }, []);
 
   useEffect(() => {
@@ -175,8 +171,11 @@ function App(props) {
   }
 
   function handleLogout() {
-    setLoggedIn(false);
-    localStorage.removeItem('token');
+    auth.logOut().then((data) => {
+      //TODO проверить пустой ответ
+      console.log(data);
+      setLoggedIn(false);
+    });    
   }
 
   function loginSubmitHandler(e, email, password) {
@@ -190,7 +189,9 @@ function App(props) {
     auth
       .authorize(password, email)
       .then((data) => {
-        if (data.token) {
+        //TODO проверить пустой ответ
+        console.log(data);
+        if (data) {
           setLoggedIn(true);
           history.push('/');
         } else {
