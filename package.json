@@ -1,5 +1,5 @@
 {
-  "homepage": "https://neelkim.students.nomoreparties.co/",
+  "homepage": "https://nee.students.nomoreparties.co/",
   "name": "mesto-react",
   "version": "0.1.0",
   "private": true,
@@ -18,7 +18,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "scp -r -i /c/Users/ПК/.ssh/id_rsa_vm ./build/* neelkim@84.201.129.68:/home/neelkim/mesto-frontend"
+    "deploy": "scp -r -i /c/Users/ПК/.ssh/id_rsa_vm ./build/* neelkim@130.193.49.232:/home/neelkim/mesto-frontend"
   },
   "eslintConfig": {
     "extends": "react-app"

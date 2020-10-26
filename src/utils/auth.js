@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.neelkim.students.nomoreparties.co';
+export const BASE_URL = 'https://api.nee.students.nomoreparties.co';
 
 export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {

@@ -57,6 +57,6 @@ class Api {
   }
 }
 
-const api = new Api("https://api.neelkim.students.nomoreparties.co");
+const api = new Api("https://api.nee.students.nomoreparties.co");
 
 export default api;
