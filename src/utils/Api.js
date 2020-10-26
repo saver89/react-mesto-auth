@@ -7,6 +7,7 @@ class Api {
   _fetchApi(url, method, additionalHeaders, body) {
     const fetchOptions = {
       method: method,
+      credentials: 'include',
       headers: { ...this._headers, ...additionalHeaders },
     };
     if (body) {

@@ -40,14 +40,14 @@ function App(props) {
         }
       })
       .catch((err) => console.log(err));    
-  }, []);
+  }, [loggedIn]);
 
   useEffect(() => {
     if (loggedIn) {
       api
         .getInitialsCards()
         .then((res) => {
-          setCards(res);
+          setCards(res.data);
         })
         .catch((err) => {
           console.error(err);
@@ -60,7 +60,7 @@ function App(props) {
       api
         .getUserInfo()
         .then((res) => {
-          setCurrentUser(res);
+          setCurrentUser(res.data);
         })
         .catch((err) => {
           console.error(err);
@@ -110,8 +110,8 @@ function App(props) {
   function handleUpdateAvatar({ avatar }) {
     api
       .editAvatar(avatar)
-      .then((updatedUser) => {
-        setCurrentUser(updatedUser);
+      .then((res) => {
+        setCurrentUser(res.data);
         setIsEditAvatarPopupOpen(false);
       })
       .catch((err) => {
@@ -122,8 +122,8 @@ function App(props) {
   function handleAddPlaceSubmit(card) {
     api
       .postCard(card)
-      .then((newCard) => {
-        setCards([newCard, ...cards]);
+      .then((res) => {
+        setCards([res.data, ...cards]);
         setIsAddPlacePopupOpen(false);
       })
       .catch((err) => {
@@ -138,7 +138,8 @@ function App(props) {
     // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .changeLikeCardStatus(card._id, !isLiked)
-      .then((newCard) => {
+      .then((res) => {
+        const newCard = res.data;
         // Формируем новый массив на основе имеющегося, подставляя в него новую карточку
         const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
         // Обновляем стейт
@@ -172,7 +173,7 @@ function App(props) {
 
   function handleLogout() {
     auth.logOut().then((res) => {
-      if (res.status === 204) {
+      if (res.status === 200) {
         setLoggedIn(false);
       }      
     });    
@@ -189,7 +190,7 @@ function App(props) {
     auth
       .authorize(password, email)
       .then((res) => {
-        if (res.status === 204) {
+        if (res.status === 200) {
           setLoggedIn(true);
           history.push('/');
         } else {

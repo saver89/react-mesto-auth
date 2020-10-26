@@ -19,6 +19,7 @@ export const register = (password, email) => {
 export const authorize = (password, email) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -42,5 +43,9 @@ export const logOut = () => {
   return fetch(`${BASE_URL}/signout`, {
     method: 'POST',
     credentials: 'include',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
   });
 };
