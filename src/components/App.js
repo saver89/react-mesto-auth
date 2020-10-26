@@ -103,7 +103,7 @@ function App(props) {
         setIsEditProfileOpen(false);
       })
       .catch((err) => {
-        console.err(err);
+        handleInfoTooltipOpen(false);
       });
   }
 
@@ -115,7 +115,7 @@ function App(props) {
         setIsEditAvatarPopupOpen(false);
       })
       .catch((err) => {
-        console.error(err);
+        handleInfoTooltipOpen(false);
       });
   }
 
@@ -127,7 +127,7 @@ function App(props) {
         setIsAddPlacePopupOpen(false);
       })
       .catch((err) => {
-        console.error(err);
+        handleInfoTooltipOpen(false);
       });
   }
 
@@ -146,7 +146,7 @@ function App(props) {
         setCards(newCards);
       })
       .catch((err) => {
-        console.error(err);
+        handleInfoTooltipOpen(false);
       });
   }
 
@@ -158,7 +158,7 @@ function App(props) {
         setCards(newCards);
       })
       .catch((err) => {
-        console.error(err);
+        handleInfoTooltipOpen(false);
       });
   }
 
