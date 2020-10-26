@@ -171,10 +171,10 @@ function App(props) {
   }
 
   function handleLogout() {
-    auth.logOut().then((data) => {
-      //TODO проверить пустой ответ
-      console.log(data);
-      setLoggedIn(false);
+    auth.logOut().then((res) => {
+      if (res.status === 204) {
+        setLoggedIn(false);
+      }      
     });    
   }
 
@@ -188,10 +188,8 @@ function App(props) {
 
     auth
       .authorize(password, email)
-      .then((data) => {
-        //TODO проверить пустой ответ
-        console.log(data);
-        if (data) {
+      .then((res) => {
+        if (res.status === 204) {
           setLoggedIn(true);
           history.push('/');
         } else {
